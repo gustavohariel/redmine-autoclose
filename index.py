@@ -35,20 +35,20 @@ def main():
         diff = date1 - date2
         if diff.days >= 7:
             try:
-                issue.update(
+                redmine.issue.update(
                     1,
                     notes="Fechado Pela Rotina Automatica Pois Estava No Status Resolvido a Mais de 7 dias",
                     closed_on=date1,
                     status_id=5)
-            except exceptions.ValidationError(Exception) :
-                return Exception
+            except exceptions.ValidationError(BaseException) :
+                return "error"
             else:
                 issue_map[issue.id] = (issue,redmine_url + "/issues/" + str(issue.id))
                 print(str(issue.id) + " - Chamado Atualizado")
 
     # se existe algum chamado atualizado, criar log.
     if issue_map:
-        with open(f"logs/closed-logs-{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json", "w") as json_out:
+        with open(f"logs/closed-logs-{datetime.now().strftime('%Y%m%d_%H%M%S')}.json", "w") as json_out:
             json.dump(issue_map, json_out)            
 
 

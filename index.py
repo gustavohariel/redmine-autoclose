@@ -43,7 +43,7 @@ def main():
             except exceptions.ValidationError(BaseException) :
                 return "error"
             else:
-                issue_map[issue.id] = (issue,redmine_url + "/issues/" + str(issue.id))
+                issue_map[issue.id] = (issue.subject,redmine_url + "/issues/" + str(issue.id))
                 print(str(issue.id) + " - Chamado Atualizado")
 
     # se existe algum chamado atualizado, criar log.
